@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Tested and working in Firefox, Chrome, and Edge. Safari not available for testing. -->
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GetUWired is the best!</title>
+    <!--   ^^^^^^^^^^^^^^^^^^^^^   Honestly I'm very excited at the possibility of working with you all! -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+
+        /* I'm using this tag to store the colors as global vars in case we'd like to use them elsewhere later. */
+        :root {
+            --primary-color: #34cc99;  /* Primary color. */
+            --secondary-color: #019966;  /* Secondary color. */
+        }
+
+        /* A nice starting position! This selector is slow so I keep styling to a minimum. */
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* I'm using this layer for the background because it seems appropriate, and I'm not sure if it's good practice. */
+        /* There doesn't seem to be much online about the subject so feel free to correct me if this shouldn't be here   */
+        html {
+            height: 100%;                                                                               /* It should be the full height of the container. */
+            width: 100%;                                                                                /* It should also be the full width of the container. */
+            background: url("http://www.getuwired.com/devtest/Death_to_stock_photography_Vibrant.jpg")
+                no-repeat fixed center / cover;                                                         /* Implement the photo requested, non repeating, fixed, centered, and covering the element. */
+            box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.2);                                    /* The inset shadow I saw in the photo to give the bg a slight white-wash. */
+        }
+
+        /* I'm using a tag selector here in case we'd like to override it in the future. */
+        /* The container holding our nav bar. */
+        nav {
+            position: sticky;             /* We want the nav bar to stay where it is. */
+            top: 0;                       /* The top should be at 0px, or the top of the viewport. */
+            width: 100%;                  /* We'd like it to maintain the width of the screen. */
+            min-width: 1400px;            /* We also don't want our elements piling up if the screen isn't wide enough. */
+            background-color: #ffffff;    /* A nice and simple white background should do the job! */
+            z-index: 1000;                /* This should make sure that nothing can display in front of the nav bar. */
+            height: 80px;                 /* After a while playing with the height, this seemed to match the photos the best. */
+            text-transform: uppercase;    /* Programmers can make mistakes! Let's make sure the page displays as requested. */
+        }
+
+        /* Everything with the "a" tag inside our nav bar. */
+        nav a {
+            display: block;                           /* Start as a block. */
+            text-decoration: none;                    /* Get rid of  those pesky decorations. */
+            font-family: "Noto Sans JP", sans-serif;  /* Use a font that resembles the photo as close as possible. */
+            color: rgb(23,23,23);                     /* Attempt to make it a bit less black. */
+            letter-spacing: 2px;                      /* Get that nice   A E S T H E T I C   spacing. */
+        }
+
+        /* Everything with the "div" tag inside our nav bar. */
+        nav div {
+            display: inline-block; /* We'd like our div elements to line up single file. */
+        }
+
+        /* My software side really wanted just a little specificity to help me think about things with more clarity. */
+        /* This will be the logo text on the right side of the nav bar. */
+        .logo-wrapper {
+            font-size: 32px;      /* Give the font a little chonk. */
+            float: left;          /* Make sure it stays on the left where it belongs. */
+            padding-top: 18px;    /* Bring it down just a bit. */
+            padding-left: 136px;  /* Move it away from the edge of the viewport. */
+        }
+
+        /* This is where the text of our logo and link back to the main page will live. */
+        .logo-wrapper a {
+            font-weight: 800;          /* Make the font nice and heavy. */
+            color: rgb(56, 56, 56);    /* Previous gray wasn't gray enough. */
+        }
+
+        /* This is our main menu! The real challenge begins. */
+        .main-menu-wrapper {
+            float: right;         /* Keep it to the right. */
+            padding-top: 28px;    /* Bring it down some to match the photo. */
+            padding-right: 65px;  /* Move it away from the edge of the viewport. */
+            display: flex;        /* This will be a flex display. I'm liking this whole flex business. */
+            flex-direction: row;  /* We want it to flex horizontally. */
+            list-style: none;     /* No list style for now. */
+            font-weight: 400;     /* Set the font weight to a nice, regular 400. */
+        }
+
+        /* Select all of the list elements in our main menu. */
+        .main-menu-wrapper ul.top-menu > li {
+            margin: 0 36px;         /* Add a 36px margin to the side to space out the menu items. */
+            display: inline-block;  /* We want these items to be displayed inline. */
+            font-size: 18px;        /* After much fiddling, this font size seems to match best. */
+            text-align: center;     /* Everyone loves a nice centered element! Let's do that. */
+        }
+
+        /* Select links directly inside top-menu list elements. */
+        .main-menu-wrapper ul.top-menu > li > a {
+            padding: 4px 8px 22px 8px;    /* Setup the pads with some extra on the bottom so it reaches the bottom of the nav bar. */
+        }
+
+        /* Select top-menu list elements and the links directly inside them. */
+        .main-menu-wrapper ul.top-menu > li,
+        .main-menu-wrapper ul.top-menu > li > a {
+            border-top-left-radius: 4px;  /* The corners should be rounded, and 4px looks about right. */
+            border-top-right-radius: 4px;
+        }
+
+        /* Select all of the sub-lists, or sub-menus, inside of our top level list. */
+        .main-menu-wrapper ul ul {
+            position: absolute;  /* Make the position relative. */
+            top: 80px;           /* We'd like it under the nav bar, which is 80px tall. */
+            padding-top: 6px;    /* Use pads to offset the sub-menu to further position it under the nav bar shadow. */
+        }
+
+        /* Select the sub-menu list items. */
+        .main-menu-wrapper ul ul li {
+            border-top-left-radius: 0;     /* Remove the top border radius. */
+            border-top-right-radius: 0;
+            list-style-type: none;         /* Get rid of those pesky markers. */
+            padding: 5px 16px;             /* Pad the top just a little and extra on the sides. */
+        }
+
+        /* Select all of the list items in our sub-menus. */
+        .main-menu-wrapper ul ul a {
+            padding: 8px 6px;  /* Pad the top and sides evenly. */
+            font-size: 15px;   /* A slightly smaller font for the sub-menu items. */
+        }
+
+        /* Select the final list item in each sub-menu and it's child "a" element. */
+        .main-menu-wrapper ul ul li:last-child,
+        .main-menu-wrapper ul ul li:last-child a {
+            border-bottom-left-radius: 4px;  /* Apply 4px rounding to the bottom corners for polish. */
+            border-bottom-right-radius: 4px;
+        }
+
+        /* Select the link inside each sub-menu list item. */
+        .main-menu-wrapper ul ul li a {
+            color: white;                    /* Make the text ivory to comply with the reference. */
+            text-shadow: 1px 1px 2px black;  /* Make a black text shadow with a 1x1px offset and 2px blur radius. */
+        }
+
+        /* Select divs with the ".green-shadow" class. */
+        .green-shadow {
+            position: fixed;  /* Fix it's position. */
+            /*width: 100%;*/  /* We want it as wide as the container. Moved this property inline to show that I know how. */
+        }
+
+        /* Select divs inside our green-shadow divs. */
+        .green-shadow div {
+            width: 100%;  /* It should be as wide as it's container. */
+            height: 6px;  /* Set the height to 6px. */
+        }
+
+        /* =====Utility Classes===== */
+
+        /* Class for changing cursor type to pointer. */
+        .cur-pointer {
+            cursor: pointer;  /* Set the cursor to the standard pointer. */
+        }
+
+        /* Class for not displaying. */
+        .display-none {
+            display: none;  /* Set the display type to "none". */
+        }
+
+        /* =====Hover Events===== */
+
+        /* When hovering over the nav: Select divs under divs with the "green-shadow" class. */
+        nav:hover ~ .green-shadow div {
+            display: block;  /* Show the green shadow. */
+        }
+
+        /* Select divs inside divs with the ".green-shadow" class, nested list items in the main menu, */
+        /* and while: hovering main menu list items > Select them and the "a" element inside them. */
+        .green-shadow div,
+        .main-menu-wrapper ul ul li,
+        .main-menu-wrapper ul li:hover > a {
+            background-color: var(--primary-color);  /* Set the background color to our primary color. */
+        }
+
+        /* While: hovering main menu list elements > Select "ul" elements, */
+        /* and while: hovering "ul" elements that are immediate siblings of "a" elements. */
+        .main-menu-wrapper ul li:hover ul,
+        .main-menu-wrapper ul li a + ul:hover {
+            display: flex;           /* Set display mode to flex. */
+            flex-direction: column;  /* Set flex-direction to column so it displays vertically. */
+        }
+
+        /* While: hovering sub-menu list elements > Select them and their child "a" elements. */
+        .main-menu-wrapper ul ul li:hover,
+        .main-menu-wrapper ul ul li:hover a {
+            background-color: var(--secondary-color);  /* Set the background to our secondary color. */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        For this navbar I decided to type everything with just capital first letters and let the CSS handle the uppercase.
+        This is in case we might want to change the styling later, and I thought it may make that task easier.
+    -->
+    <nav>
+        <div class="logo-wrapper">
+            <a href="./RonaldHeadrick-menu.html">GetUWired</a>
+        </div>
+
+        <div class="main-menu-wrapper">
+            <ul class="top-menu">
+                <li class="cur-pointer">
+                    <a href="#">About</a>
+                    <ul class="display-none">
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Our Commitment to You</a></li>
+                    </ul>
+                </li>
+                <li class="cur-pointer">
+                    <a href="#">Locations</a>
+                    <ul class="display-none">
+                        <li><a href="#">Austin, TX</a></li>
+                        <li><a href="#">Atlanta, GA</a></li>
+                        <li><a href="#">Seattle, WA</a></li>
+                        <li><a href="#">Portland, OR</a></li>
+                    </ul>
+                </li>
+                <li class="cur-pointer">
+                    <a href="#">Products</a>
+                    <ul class="display-none">
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Featured</a></li>
+                        <li><a href="#">Top Rated</a></li>
+                        <li><a href="#">His</a></li>
+                        <li><a href="#">Hers</a></li>
+                        <li><a href="#">Kids</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Spring Catalog</a></li>
+                        <li><a href="#">The Essentials</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </li>
+                <li class="cur-pointer"><a href="#">Blog</a></li>
+                <li class="cur-pointer"><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="green-shadow" style="width: 100%;">
+        <div class="display-none"></div>
+    </div>
+</body>
+
+</html>
